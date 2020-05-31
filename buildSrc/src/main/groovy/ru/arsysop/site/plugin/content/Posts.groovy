@@ -131,9 +131,11 @@ class Posts {
     private class TagPage extends Page {
 
         private final String value
+        private final SingleTagUnitCodes codes
 
         TagPage(String value) {
             this.value = value
+            this.codes = new SingleTagUnitCodes(value)
         }
 
         @Override
@@ -143,14 +145,14 @@ class Posts {
 
         @Override
         String code() {
-            "tag_$value"
+            codes.page()
         }
 
         @Override
         Map data() {
             [
                     POSTS : ads(TagPage.this, { tagsExtracted(it.tags).contains(value) }),
-                    TAGS  : content.fragment(new SingleTagUnitCodes(value).fragment(), TagPage.this),
+                    TAGS  : content.fragment(codes.fragment(), TagPage.this),
                     HEADER: content.fragment('header', TagPage.this),
                     FOOTER: content.fragment('footer', TagPage.this)
             ]
@@ -165,22 +167,22 @@ class Posts {
     private class TagFragment extends Fragment {
 
         private final String tag
-        private final String code
+        private final SingleTagUnitCodes codes
 
         TagFragment(String tag) {
             this.tag = tag
-            this.code = new SingleTagUnitCodes(tag).fragment()
+            this.codes = new SingleTagUnitCodes(tag)
         }
 
         @Override
         String code() {
-            code
+            codes.fragment()
         }
 
         @Override
         Map data(Page owner) {
             [TAGS: [
-                    REF : content.reference("tag_$tag", owner),
+                    REF : content.reference(codes.page(), owner),
                     NAME: tag
             ]]
         }
