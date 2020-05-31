@@ -1,0 +1,15 @@
+{
+  "defaults": {
+    "full": "full",
+    "ad": "brief"
+  },
+  "projects": [
+    {
+      "code": "project-code",
+      "title": "Project Title",
+      "synopsis": "Couple of words about the Project",
+      "keywords": "comma,separated,keywords,FOR,META",
+      "description": "Wide project explanation FOR META"
+    }
+  ]
+}

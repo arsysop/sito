@@ -1,0 +1,13 @@
+{
+  "posts": [
+    {
+      "date": "yyyy-mm-dd",
+      "title": "Post Title",
+      "synopsis": "Couple of words about the post content",
+      "tags": "comma,separated,tags",
+      "folder": "content-folder",
+      "keywords": "comma,separated,keywords,FOR,META",
+      "description": "Post content description FOR META"
+    }
+  ]
+}
