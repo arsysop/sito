@@ -51,7 +51,7 @@ class Posts {
 
     List<Map> ads(Page owner, Closure<Boolean> filter = { true }) {
         index.get().posts
-                .findAll { filter }
+                .findAll(filter)
                 .withIndex()
                 .collect { post, position ->
                     String code = position as String
@@ -149,7 +149,7 @@ class Posts {
         @Override
         Map data() {
             [
-                    POSTS : ads(TagPage.this) { tagsExtracted(it.tags).contains(value) },
+                    POSTS : ads(TagPage.this, { tagsExtracted(it.tags).contains(value) }),
                     TAGS  : content.fragment(new SingleTagUnitCodes(value).fragment(), TagPage.this),
                     HEADER: content.fragment('header', TagPage.this),
                     FOOTER: content.fragment('footer', TagPage.this)
