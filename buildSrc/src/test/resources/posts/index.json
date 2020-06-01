@@ -1,0 +1,19 @@
+{
+  "posts": [
+    {
+      "date": "2020-01-01",
+      "title": "Egg story",
+      "tags": "egg"
+    },
+    {
+      "date": "2020-02-01",
+      "title": "Plate history",
+      "tags": "plate"
+    },
+    {
+      "date": "2020-03-02",
+      "title": "The meeting",
+      "tags": "egg,plate"
+    }
+  ]
+}
