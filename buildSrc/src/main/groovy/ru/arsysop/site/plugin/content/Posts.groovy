@@ -213,7 +213,13 @@ class Posts {
         }
 
         Set<String> get() {
-            (post.tags?.trim() ?: '').toLowerCase().split(',').toList().toSet()
+            (post.tags ?: '')
+                    .toLowerCase()
+                    .split(',')
+                    .collect { it.trim() }
+                    .findAll { !it.isEmpty() }
+                    .toList()
+                    .toSet()
         }
 
     }
