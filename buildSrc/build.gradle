@@ -38,13 +38,21 @@ repositories {
 dependencies {
     implementation 'com.github.spullara.mustache.java:compiler:0.9.6'
     implementation 'ru.arsysop:ru.arsysop.lang:0.1'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 gradlePlugin {
     plugins {
-        myPlugins {
+        SitoPlugin {
             id = 'sito'
             implementationClass = 'ru.arsysop.site.plugin.SitoPlugin'
         }
     }
 }
+
