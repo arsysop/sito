@@ -43,7 +43,7 @@ class Posts {
         })
         this.tags = new CachingSupplier({
             index.get().posts
-                    .collect { tagsExtracted(it.tags) }
+                    .collect { new TagsExtracted(it).get() }
                     .flatten()
                     .toSet()
         })
@@ -51,22 +51,20 @@ class Posts {
 
     List<Map> ads(Page owner, Closure<Boolean> filter = { true }) {
         index.get().posts
-                .withIndex()
                 .findAll(filter)
-                .collect { post, position ->
-                    String code = position as String
+                .collect { post ->
                     [
                             ABOUT_SHORT: post.title,
                             ABOUT_WIDE : post.synopsis,
                             DATE       : post.date,
                             CONTENT    : post.synopsis,
-                            REF_FULL   : content.reference(code, owner)
+                            REF_FULL   : content.reference(new PostCode(post).get(), owner)
                     ]
                 }
     }
 
     List<Page> pages() {
-        index.get().posts.withIndex().collect { post, position -> new PostPage(post, position as String) } +
+        index.get().posts.withIndex().collect { post, position -> new PostPage(post) } +
                 tags.get().collect { new TagPage(it) }
     }
 
@@ -78,18 +76,14 @@ class Posts {
         tags.get()
     }
 
-    private Set<String> tagsExtracted(String tags) {
-        tags.toLowerCase().split(',').toList().toSet()
-    }
-
     private class PostPage extends Page {
 
         private final Map source
         private final String code
 
-        PostPage(Map source, String code) {
-            this.code = code
+        PostPage(Map source) {
             this.source = source
+            this.code = new PostCode(source).get()
         }
 
         @Override
@@ -116,7 +110,7 @@ class Posts {
                     TAGS            : content.dynamicFragment(
                             'tags_set',
                             PostPage.this,
-                            new DynamicTagsFragmentData(tagsExtracted(source.tags), content, PostPage.this).get()),
+                            new DynamicTagsFragmentData(new TagsExtracted(source).get(), content, PostPage.this).get()),
                     META_KEYWORDS   : source.keywords,
                     META_DESCRIPTION: source.description
             ]
@@ -151,7 +145,7 @@ class Posts {
         @Override
         Map data() {
             [
-                    POSTS : ads(TagPage.this, { post, position -> tagsExtracted(post.tags).contains(value) }),
+                    POSTS : ads(TagPage.this, { post -> new TagsExtracted(post).get().contains(value) }),
                     TAGS  : content.fragment(codes.fragment(), TagPage.this),
                     HEADER: content.fragment('header', TagPage.this),
                     FOOTER: content.fragment('footer', TagPage.this)
@@ -207,6 +201,35 @@ class Posts {
         @Override
         String template() {
             'tags'
+        }
+    }
+
+    static class TagsExtracted {
+
+        private final Map post
+
+        TagsExtracted(Map post) {
+            this.post = post
+        }
+
+        Set<String> get() {
+            (post.tags?.trim() ?: '').toLowerCase().split(',').toList().toSet()
+        }
+
+    }
+
+    static class PostCode {
+
+        private final Map post
+
+        PostCode(Map post) {
+            this.post = post
+        }
+
+        String get() {
+            Objects.requireNonNull(post.date, "post ${post} does not contain 'date' field")
+            Objects.requireNonNull(post.title, "post ${post} does not contain 'title' field")
+            ("${post.date}-${post.title}").toLowerCase().replaceAll("\\W", '-')
         }
     }
 
