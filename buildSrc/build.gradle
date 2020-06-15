@@ -29,15 +29,12 @@ version = "0.1"
 
 repositories {
     mavenCentral()
-    maven { // temporary: should be jcenter()
-        url 'https://dl.bintray.com/arsysop/lang'
-    }
     gradlePluginPortal()
 }
 
 dependencies {
     implementation 'com.github.spullara.mustache.java:compiler:0.9.6'
-    implementation 'ru.arsysop:ru.arsysop.lang:0.1'
+    implementation group: 'ru.arsysop.lang', name: 'lang', version: '0.1'
 
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'

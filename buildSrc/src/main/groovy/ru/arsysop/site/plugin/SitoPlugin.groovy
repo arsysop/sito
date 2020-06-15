@@ -27,6 +27,8 @@ import ru.arsysop.site.plugin.content.Site
 class SitoPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.task("sito") {
+            group "Build"
+            description "build a fresh ArSysOp site assembly"
             doLast {
                 new Site(new ContentDirectory(project),
                         new BuildDirectory(project)).generate()
