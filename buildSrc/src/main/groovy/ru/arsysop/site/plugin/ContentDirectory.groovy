@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 ArSysOp
+ * Copyright (c) 2020, 2021 ArSysOp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import ru.arsysop.site.plugin.content.ContentResidence
 import java.nio.file.Path
 
 @PackageScope
-class ContentDirectory implements ContentResidence {
+final class ContentDirectory implements ContentResidence {
 
     private final CachingFunction<Project, Path> content
     private final CachingSupplier<Path> templates

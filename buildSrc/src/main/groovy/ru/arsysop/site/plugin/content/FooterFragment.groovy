@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 ArSysOp
+ * Copyright (c) 2020, 2021 ArSysOp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ package ru.arsysop.site.plugin.content
 import groovy.transform.PackageScope
 
 @PackageScope
-class FooterFragment extends Fragment {
+final class FooterFragment extends Fragment {
 
     @Override
     String code() {

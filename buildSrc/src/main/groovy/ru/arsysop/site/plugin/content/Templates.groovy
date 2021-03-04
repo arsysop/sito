@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 ArSysOp
+ * Copyright (c) 2020, 2021 ArSysOp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.nio.file.Path
 import java.util.function.Supplier
 
 @PackageScope
-class Templates {
+final class Templates {
 
     private final DefaultMustacheFactory factory
     private final Path residence

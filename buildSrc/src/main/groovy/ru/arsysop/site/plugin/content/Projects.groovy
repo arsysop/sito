@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2020 ArSysOp
+ * Copyright (c) 2020, 2021 ArSysOp
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import ru.arsysop.lang.function.CachingSupplier
 import java.nio.file.Path
 
 @PackageScope
-class Projects {
+final class Projects {
 
     private final Path residence
     private final ContentSupplier content
@@ -60,7 +60,7 @@ class Projects {
         index.get().projects.collect { new ProjectPage(it) }
     }
 
-    private class ProjectPage extends Page {
+    private final class ProjectPage extends Page {
 
         private final Map source
 
