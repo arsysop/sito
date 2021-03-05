@@ -61,7 +61,12 @@ class Site {
     }
 
     void generate() {
+        compileStyles()
         generatePage("index")
+    }
+
+    private void compileStyles(){
+        new Styles(content.styles(), output).compile()
     }
 
     private void generatePage(String code) {
@@ -69,9 +74,7 @@ class Site {
             return
         }
         generated.add(code)
-        pages.get(code).with { page ->
-            templates.build(page)
-        }
+        pages.get(code).with { templates.build(it)}
     }
 
     private class Content implements ContentSupplier {
@@ -84,7 +87,6 @@ class Site {
                 String path = Paths.get(from.path()).relativize(Paths.get(page.path()))
                 "${path}${path ? '/' : ''}${code}.html"
             }
-
         }
 
         @Override
@@ -98,6 +100,7 @@ class Site {
             println "request dynamic fragment ${code} for page ${from.code()}"
             templates.content(fragments.get(code), data, from)
         }
+
     }
 
 }

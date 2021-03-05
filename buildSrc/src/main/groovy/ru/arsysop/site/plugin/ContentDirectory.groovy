@@ -35,12 +35,14 @@ final class ContentDirectory implements ContentResidence {
     private final CachingSupplier<Path> templates
     private final CachingSupplier<Path> projects
     private final CachingSupplier<Path> blog
+    private final CachingSupplier<Path> styles
 
     ContentDirectory(Project project) {
         this.content = new CachingFunction<>(project, { contentDirectory it })
         this.blog = new CachingSupplier<>({ this.content.get().resolve("blog") })
         this.templates = new CachingSupplier<>({ this.content.get().resolve("templates") })
         this.projects = new CachingSupplier<>({ this.content.get().resolve("projects") })
+        this.styles = new CachingSupplier<>({ this.content.get().resolve("styles") })
     }
 
     private Path contentDirectory(Project project) {
@@ -57,6 +59,10 @@ final class ContentDirectory implements ContentResidence {
 
     Path blog() {
         blog.get()
+    }
+
+    Path styles() {
+        styles.get()
     }
 
 }
