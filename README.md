@@ -11,4 +11,4 @@ Build it with
 ```
  > gradlew sito
 ```
-to have site content in _build/sito_
+to have site content in _build/sito_. By default opens automatically in browser.
