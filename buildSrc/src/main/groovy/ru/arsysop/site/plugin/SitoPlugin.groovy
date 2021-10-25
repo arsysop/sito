@@ -24,14 +24,23 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import ru.arsysop.site.plugin.content.Site
 
+import java.awt.Desktop
+import java.nio.file.Path
+import java.util.function.Supplier
+
 final class SitoPlugin implements Plugin<Project> {
     void apply(Project project) {
+        def extension = project.extensions.create('sito', SitoPluginExtension)
         project.task("sito") {
             group "Build"
             description "build a fresh ArSysOp site assembly"
             doLast {
-                new Site(new ContentDirectory(project),
-                        new BuildDirectory(project)).generate()
+                Supplier<Path> target = new BuildDirectory(project);
+                new Site(new ContentDirectory(project), target).generate()
+                print(target.get())
+                if(extension.open){
+                    Desktop.desktop.open(target.get().resolve("index.html").toFile())
+                }
             }
         }
     }

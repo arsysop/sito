@@ -10,6 +10,13 @@
       "synopsis": "Couple of words about the Project",
       "keywords": "comma,separated,keywords,FOR,META",
       "description": "Wide project explanation FOR META"
+    },
+    {
+      "code": "cordon",
+      "title": "Cordon",
+      "synopsys": "Licensing lifecycle support products for Eclipse Passage",
+      "keywords": "cordon,license,licensing,floating license,agent,operator,issue license",
+      "description": "agent and operator products for Eclipse Passage"
     }
   ]
 }

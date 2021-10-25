@@ -23,6 +23,10 @@ plugins {
     id 'sito'
 }
 
+sito {
+    open = true
+}
+
 group 'ru.arsysop'
 version '0.1'
 
